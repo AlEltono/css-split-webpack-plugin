@@ -10,12 +10,16 @@ const getSelLength = (node) => {
     return node.selectors.length;
   }
   if (node.type === 'atrule') {
+    if (typeof node.type === "undefined") {
+      return 1;
+    }
     return 1 + node.nodes.reduce((memo, n) => {
       return memo + getSelLength(n);
     }, 0);
   }
   return 0;
 };
+
 
 /**
  * PostCSS plugin that splits the generated result into multiple results based
